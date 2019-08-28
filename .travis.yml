@@ -7,5 +7,18 @@ before_install:
 
 script:
   - docker run -e CI=true econgamer/docker-react npm run test
-
   # - docker run econgamer/docker-react npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "ap-northeast-1"
+  app: "docker-react"
+  env: "DockerReact-env"
+  bucket_name: "elasticbeanstalk-ap-northeast-1-975459662813"
+  bucket_path: "docker-react"
+  on:
+    branch: master
+  access_key_id:
+    secure: "$AWS_ACCESS_KEY"
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
